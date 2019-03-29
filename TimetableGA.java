@@ -143,19 +143,18 @@ public class TimetableGA {
         timetable.addProfessor(4, "Mr A Thompson");
 
         // Set up modules and define the professors that teach them
-//        timetable.addModule(1, "cs1", "Computer Science", new int[]{1, 2});
-//        timetable.addModule(2, "en1", "English", new int[]{1, 3});
-//        timetable.addModule(3, "ma1", "Maths", new int[]{1, 2});
-//        timetable.addModule(4, "ph1", "Physics", new int[]{3, 4});
-//        timetable.addModule(5, "hi1", "History", new int[]{4});
-//        timetable.addModule(6, "dr1", "Drama", new int[]{1, 4});
-        Connection conn = null;
+//            timetable.addModule(1, "cs1", "Computer Science", new int[]{1, 2});
+//            timetable.addModule(2, "en1", "English", new int[]{1, 3});
+//            timetable.addModule(3, "ma1", "Maths", new int[]{1, 2});
+//            timetable.addModule(4, "ph1", "Physics", new int[]{3, 4});
+//            timetable.addModule(5, "hi1", "History", new int[]{4});
+//            timetable.addModule(6, "dr1", "Drama", new int[]{1, 4});
+
+Connection conn = null;
         PreparedStatement ps = null;
-
-        String query = "SELECT moduleId, moduleCode, module, professorIds from courses";
+      
+        String query = "SELECT moduleId, moduleCode, module, professorIds from Course";
         ResultSet rs = null;
-
-        List<String> professorIdsStrList;
 
         try {
 
@@ -167,28 +166,26 @@ public class TimetableGA {
             rs = ps.executeQuery();
 
             List<Module> moduleList = new ArrayList<Module>();
-
+            int index = 1;
             while (rs.next()) {
 
                 Module module = null;
 
-                professorIdsStrList = Arrays.asList(rs.getString("professorIds").split("\\s*,\\s*"));
+                List<String> professorIdsStrList = Arrays.asList(rs.getString("professorIds").split("\\s*,\\s*"));
                 List<Integer> professorIdsIntList = professorIdsStrList.stream()
                         .map(s -> Integer.parseInt(s))
                         .collect(Collectors.toList());
 
                 module = new Module(rs.getInt("moduleId"), rs.getString("moduleCode"), rs.getString("module"), professorIdsIntList);
-
+                timetable.modules.put(index, module);
                 moduleList.add(module);
+                index++;
                 
 
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-
-        }
-        
-        
+    }
 
         // Set up student groups and the modules they take.
         timetable.addGroup(1, 10, new int[]{1, 3, 4});
