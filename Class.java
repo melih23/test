@@ -4,6 +4,11 @@ package chapter5;
  * A simple class abstraction -- basically a container for class, group, module, professor, timeslot, and room IDs
  */
 public class Class {
+
+    static void forname(String commysqljdbcDriver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private final int classId;
     private final int groupId;
     private final int moduleId;

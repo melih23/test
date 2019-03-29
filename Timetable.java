@@ -1,6 +1,7 @@
 package chapter5;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Timetable is the main evaluation class for the class scheduler GA.
@@ -110,7 +111,7 @@ public class Timetable {
 	 * @param module
 	 * @param professorIds
 	 */
-	public void addModule(int moduleId, String moduleCode, String module, int professorIds[]) {
+	public void addModule(int moduleId, String moduleCode, String module, List<Integer>professorIds) {
 		this.modules.put(moduleId, new Module(moduleId, moduleCode, module, professorIds));
 	}
 
